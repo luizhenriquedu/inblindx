@@ -1,0 +1,29 @@
+{
+    "name": "inblindx",
+    "version": "1.0.6",
+    "main": "dist/index.js",
+    "license": "MIT",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "dev:run": "tsnd --respawn --transpile-only src/index.ts",
+        "barrels": "npx barrelsby --directory src/results --delete --barrelName index.ts --structure flat"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.8",
+        "@types/express": "^5.0.1",
+        "@types/express-session": "^1.18.1",
+        "@types/glob": "^8.1.0",
+        "barrelsby": "^2.8.1",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "class-transformer": "^0.5.1",
+        "cookie-parser": "^1.4.7",
+        "express": "^5.1.0",
+        "express-session": "^1.18.1",
+        "glob": "^11.0.1",
+        "reflect-metadata": "^0.2.2",
+        "dotenv": "^16.5.0"
+    }
+}
