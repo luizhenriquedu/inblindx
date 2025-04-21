@@ -15,10 +15,6 @@
 import { App, Type, RequestSession } from "inblindx";
 import AppConfig from "./config/AppConfig";
 
-export type UserSession = RequestSession & {
-    userId: number;
-};
-
 class AppConfig {
     @Type("number")
     declare port: number;
@@ -49,6 +45,10 @@ import { Controller, FromParam, HttpGet, ReqSession, Results } from "inblindx";
 import { UserSession } from "../SessionExtension";
 import { Inject } from "inblindx/dist/decorators/InjectableDecorator";
 import UserService from "../services/UserService";
+
+export type UserSession = RequestSession & {
+    userId: number;
+};
 
 @Controller("/user")
 class UserController {
