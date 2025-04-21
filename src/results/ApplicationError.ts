@@ -1,6 +1,6 @@
+import { Constructor } from "../types/BaseController";
 import { ActionResult } from "./ActionResult";
 import { BaseError } from "./BaseError";
-export type Constructor<T> = new (...args: any[]) => T;
 export default class ApplicationErrorBuilder<T extends BaseError> extends ActionResult {
     readonly STATUS = 500;
     declare Message: string;

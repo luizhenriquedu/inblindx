@@ -1,4 +1,4 @@
-import IRouteDefinition from "./interfaces/IRouteDefinition";
+import IRouteDefinition from "../../types/IRouteDefinition";
 
 export function HttpGet(route: string): MethodDecorator {
     return function (target: Object, key: string | symbol, descriptor: PropertyDescriptor) {

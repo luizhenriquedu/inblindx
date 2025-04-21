@@ -7,7 +7,7 @@ export { FromBody } from "./decorators/FromBodyDecorator";
 export { Injectable } from "./decorators/InjectableDecorator";
 export { RequestSession } from "./types/Session";
 export { ReqSession } from "./decorators/SessionDecorator";
-
+export { BaseController } from "./types/BaseController";
 export { Controller } from "./decorators/Controllers/ControllerDecorator";
 export { ServiceCollection } from "./classes/ServiceCollection";
 export { App } from "./classes/App";

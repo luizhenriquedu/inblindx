@@ -1,4 +1,4 @@
-import ApplicationError, { Constructor } from "./ApplicationError";
+import ApplicationError from "./ApplicationError";
 import { BaseError } from "./BaseError";
 import { CreatedResult } from "./CreatedResult";
 import { NotFoundResult } from "./NotFoundResult";
@@ -6,6 +6,7 @@ import { OkResult } from "./OkResult";
 import { RedirectResult } from "./RedirectResult";
 import { UnauthorizedResult } from "./UnauthorizedResult";
 import { BadRequest } from "./BadRequestResult";
+import { Constructor } from "../types/BaseController";
 export const Results = {
     Ok: (data: object = {}) => new OkResult(data),
     Created: (data: object = {}) => new CreatedResult(data),

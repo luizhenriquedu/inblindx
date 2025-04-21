@@ -1,4 +1,4 @@
-import { HttpMethods } from "../types/HttpVerbType";
+import { HttpMethods } from "./HttpVerbType";
 
 export default interface IRouteDefinition {
     method: HttpMethods;

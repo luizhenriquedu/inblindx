@@ -2,10 +2,9 @@ import { getControllerRegistry } from "../registry/registryController";
 import { glob } from "glob";
 import { Express } from "express";
 import { ConfigLoader } from "./ConfigLoader";
-import session, { SessionOptions } from "express-session";
-type RequiredCookieSessionOptions = SessionOptions & {
-    cookie: NonNullable<SessionOptions["cookie"]>;
-};
+import session from "express-session";
+import { RequiredCookieSessionOptions } from "../types/RequiredCookieSessionOptions";
+
 export class ServiceCollection {
     constructor(private express: Express) {}
     AddControllers(app: Express) {

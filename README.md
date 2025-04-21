@@ -1,16 +1,22 @@
 # An ASP.NET Core based development library (with express)
+
 ---
+
 ## Features
-- Controller Decorator (route controllers)
-- HttpVerb Decorator
-- FromBody, Params, Etc
-- Auto controller loading (need to be at src/controller)
-- Auto config loader (dotenv and json)
-- Session, AddSession, with cookie based auth (using express-session, you can also extends the session type)
-- Dependency injection
-- Results
+
+-   Controller Decorator (route controllers)
+-   HttpVerb Decorator
+-   FromBody, Params, Etc
+-   Auto controller loading (need to be at src/controller)
+-   Auto config loader (dotenv and json)
+-   Session, AddSession, with cookie based auth (using express-session, you can also extends the session type)
+-   Dependency injection
+-   Results
+
 ---
+
 ## Usage examples
+
 ```ts
 import { App, Type, RequestSession } from "inblindx";
 import AppConfig from "./config/AppConfig";
@@ -37,11 +43,10 @@ function main() {
 main();
 ```
 
-
 src/controllers/UserController.ts
 
 ```ts
-import { Controller, FromParam, HttpGet, ReqSession, Results } from "inblindx";
+import { Controller, FromParam, HttpGet, ReqSession, Results, BaseController } from "inblindx";
 import { UserSession } from "../SessionExtension";
 import { Inject } from "inblindx/dist/decorators/InjectableDecorator";
 import UserService from "../services/UserService";
@@ -51,8 +56,10 @@ export type UserSession = RequestSession & {
 };
 
 @Controller("/user")
-class UserController {
-    constructor(@Inject private userService: UserService) {}
+class UserController extends BaseController {
+    constructor(@Inject private userService: UserService) {
+        super();
+    }
     @HttpGet("get/:id")
     logInConsole(@FromParam("id") id: number, @ReqSession() session: UserSession) {
         session.userId = id;
@@ -69,6 +76,7 @@ class UserController {
     }
 }
 ```
+
 src/services/UserServices.ts
 
 ```ts
@@ -85,12 +93,13 @@ export default class UserService {
 this is a pretty simple example of the library use
 
 ### Dependencies
-- express
-- dotenv
-- express-session
-- class-transform
-- glob
+
+-   express
+-   dotenv
+-   express-session
+-   class-transform
+-   glob
+-   cookie-parser
+-   reflect-metadata
 
 (the library will have severe updates)
-- cookie-parser
-- reflect-metadata

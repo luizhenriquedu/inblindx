@@ -1,4 +1,4 @@
-const controllerRegistry: any[] = [];
+const controllerRegistry: Object[] = [];
 
 export function registerController(controllerClass: Object) {
     controllerRegistry.push(controllerClass);

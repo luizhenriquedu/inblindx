@@ -1,14 +1,18 @@
 import { Router } from "express";
 import "reflect-metadata";
-import IRouteDefinition from "./interfaces/IRouteDefinition";
+import IRouteDefinition from "../../types/IRouteDefinition";
 import { registerController } from "../../registry/registryController";
 import { ActionResult } from "../../results/ActionResult";
 import { BaseError } from "../../results/BaseError";
-import { plainToInstance } from "class-transformer";
+import { ClassConstructor, plainToInstance } from "class-transformer";
 import { resolve } from "../InjectableDecorator";
-export function Controller<T extends { new (...args: any[]): {} }>(route: string) {
+import { ISessionMetadata } from "../../types/ISessionMetadata";
+import { IParamMetadata } from "../../types/IParamMetadata";
+import { BaseController, Constructor } from "../../types/BaseController";
+import { IBodyMetadata } from "../../types/IBodyMetadata";
+export function Controller<T extends Constructor<BaseController>>(route: string) {
     return function (constructor: T) {
-        const instance: any = resolve(constructor);
+        const instance = resolve(constructor);
         Reflect.defineMetadata("instance", instance, constructor);
 
         const router = Router();
@@ -18,21 +22,22 @@ export function Controller<T extends { new (...args: any[]): {} }>(route: string
             const fullPath = `${route}/${path}`.replace(/\/+/g, "/");
 
             const handler = instance[handlerName as keyof typeof instance] as Function;
-            const bodyQueries = Reflect.getMetadata("body", constructor.prototype, handlerName) || [];
-            const params = Reflect.getMetadata("params", constructor.prototype, handlerName) || [];
-            const session = Reflect.getMetadata("session", constructor.prototype, handlerName) || [];
+            const bodyQueries: IBodyMetadata[] = Reflect.getMetadata("body", constructor.prototype, handlerName) || [];
+            const params: IParamMetadata[] = Reflect.getMetadata("params", constructor.prototype, handlerName) || [];
+            const session: ISessionMetadata = Reflect.getMetadata("session", constructor.prototype, handlerName);
             if (typeof handler === "function") {
                 router[method](fullPath, async (req, res) => {
-                    const paramTypes = Reflect.getMetadata("design:paramtypes", constructor.prototype, handlerName);
+                    const paramTypes: ClassConstructor<unknown>[] = Reflect.getMetadata(
+                        "design:paramtypes",
+                        constructor.prototype,
+                        handlerName
+                    );
 
-                    const args: any[] = [];
+                    const args: unknown[] = [];
                     for (const param of params) {
                         args[param.index] = req.params[param.name];
                     }
-
-                    for (let x of session) {
-                        args[x.index] = req.session;
-                    }
+                    args[session.index] = req.session;
                     for (let i = 0; i < bodyQueries.length; i++) {
                         const fromBody = bodyQueries.find((p: any) => p.index == i);
                         if (fromBody) {
