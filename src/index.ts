@@ -1,6 +1,7 @@
 export * from "./decorators/Controllers/HttpControllerVerbs";
 export { ConfigLoader } from "./classes/ConfigLoader";
 export * from "./results";
+export { Expose } from "class-transformer";
 export { Type } from "./decorators/ConfigDecorator/TypeConfigDecorator";
 export { FromParam } from "./decorators/FromParamDecorator";
 export { FromBody } from "./decorators/FromBodyDecorator";

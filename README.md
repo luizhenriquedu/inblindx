@@ -92,6 +92,21 @@ export default class UserService {
 
 this is a pretty simple example of the library use
 
+you can use
+
+```ts
+class User{
+    @Expose
+    email: string
+    @Expose
+    password: string
+}
+@FromBody() user: User
+```
+
+This will automatically desestructure que request body and get the exposed properties.
+@Expose is a decorator from class-transformer
+
 ### Dependencies
 
 -   express
@@ -103,3 +118,7 @@ this is a pretty simple example of the library use
 -   reflect-metadata
 
 (the library will have severe updates)
+
+```
+
+```
