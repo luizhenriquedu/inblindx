@@ -39,8 +39,6 @@ function main() {
 }
 
 main();
-
-const app = new
 ```
 
 
